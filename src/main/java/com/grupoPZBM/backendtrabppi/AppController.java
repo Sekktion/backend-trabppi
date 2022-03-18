@@ -15,12 +15,12 @@ public class AppController {
 	}
 	
 	@GetMapping("/produtos")
-	public Product[] getProdutos(@RequestParam(value = "searchParams", defaultValue = "")String searchParams) {
+	public Product[] getProducts(@RequestParam(value = "searchParams", defaultValue = "")String searchParams) {
 		Product[] products;
 		
 		//Alocado estaticamente mas deverá ser dinâmico (de acordo com a quantidade de produtos retornados do BD)
 		
-		products = new Product[1];
+		products = new Product[3];
 		
 //		while(false) {
 //			//Busca no Banco de Dados todos os produtos cujo nome contenha o recebido em "searchParams"
@@ -29,9 +29,55 @@ public class AppController {
 		
 		// Inserção de exemplo só para o código rodar, vai ser apagada dps
 		
-		products[0] = new Product("teste", "teste", "teste", "teste",1 ,"teste");
+		products[0] = new Product("teste1", "teste1", "teste1", "teste1", 1,"teste1");
+		products[1] = new Product("teste2", "teste2", "teste2", "teste2", 2,"teste2");
+		products[2] = new Product("teste3", "teste3", "teste3", "teste3", 3,"teste3");
 		return products; //Deve retornar JSON, ainda não sei como, mas é isso.
 	}
+	
+	// Em desenvolvimento
+//	@GetMapping("/produtos/:id")
+//	public Product getProduct(@RequestParam(value = "searchParams", defaultValue = "")String searchParams) {
+//		Product[] products;
+//		
+//		//Alocado estaticamente mas deverá ser dinâmico (de acordo com a quantidade de produtos retornados do BD)
+//		
+//		products = new Product[3];
+//		
+////		while(false) {
+////			//Busca no Banco de Dados todos os produtos cujo nome contenha o recebido em "searchParams"
+//			//E os adiciona ao array 'products';
+////		}
+//		
+//		// Inserção de exemplo só para o código rodar, vai ser apagada dps
+//		
+//		products[0] = new Product("teste1", "teste1", "teste1", "teste1", 1,"teste1");
+//		products[1] = new Product("teste2", "teste2", "teste2", "teste2", 2,"teste2");
+//		products[2] = new Product("teste3", "teste3", "teste3", "teste3", 3,"teste3");
+//		return products; //Deve retornar JSON, ainda não sei como, mas é isso.
+//	}
+	
+	// Em desenvolvimento
+//	@GetMapping("/me/produtos")
+//	public Product[] getMyProducts() { 
+//		Product[] my_products;
+//		
+//		//Alocado estaticamente mas deverá ser dinâmico (de acordo com a quantidade de produtos retornados do BD)
+//		
+//		my_products = new Product[3];
+//		
+////		while(false) {
+////			//Busca no Banco de Dados todos os produtos cujo nome contenha o recebido em "search"
+//			//E os adiciona ao array 'products';
+////		}
+//		
+//		// Inserção de exemplo só para o código rodar, vai ser apagada dps
+//		
+//		my_products[0] = new Product("teste4", "teste4", "teste4", "teste4", 4,"teste4");
+//		my_products[1] = new Product("teste5", "teste5", "teste5", "teste5", 5,"teste5");
+//		my_products[2] = new Product("teste6", "teste6", "teste6", "teste6", 6,"teste6");
+//		return my_products; //Deve retornar JSON, ainda não sei como, mas é isso.
+//	}
 	
 	@PostMapping("/produtos")
 	public String postProduto(@RequestParam(value = "nome", defaultValue = "")String name,
@@ -77,7 +123,7 @@ public class AppController {
 		return loginToken;
 	}
 	
-	@PostMapping("/login")
+	@GetMapping("/login")
 	public String userLogin(@RequestParam(value = "username", defaultValue = "") String username, 
 			@RequestParam(value = "password", defaultValue = "") String password) {
 		
