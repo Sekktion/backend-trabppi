@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AppController {
+
+	@GetMapping("/")
+	public String greeting(@RequestParam(value = "name", defaultValue = "mundo")String name) {
+		String template = "Olá %s, deu certo. O app está rodando.";
+		return String.format(template, name);
+	}
 	
 	@GetMapping("/produtos")
 	public Product[] getProdutos(@RequestParam(value = "searchParams", defaultValue = "")String searchParams) {
