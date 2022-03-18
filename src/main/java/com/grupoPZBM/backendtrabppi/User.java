@@ -6,12 +6,14 @@ public class User {
 	String password;
 	String email;
 	String phoneNum;
+	int userId;
 	
-	public User(String username, String password, String email, String phoneNum) {
+	public User(String username, String password, String email, String phoneNum, int userId) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.phoneNum = phoneNum;
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -28,5 +30,9 @@ public class User {
 	
 	public String getPhoneNum() {
 		return phoneNum;
+	}
+	
+	public int getUserId() {
+		return userId;
 	}
 }

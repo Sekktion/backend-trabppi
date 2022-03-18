@@ -29,9 +29,9 @@ public class AppController {
 		
 		// Inserção de exemplo só para o código rodar, vai ser apagada dps
 		
-		products[0] = new Product("teste1", "teste1", "teste1", "teste1", 1,"teste1");
-		products[1] = new Product("teste2", "teste2", "teste2", "teste2", 2,"teste2");
-		products[2] = new Product("teste3", "teste3", "teste3", "teste3", 3,"teste3");
+		products[0] = new Product("teste1", "teste1", "teste1", "teste1", 1,"teste1", 1);
+		products[1] = new Product("teste2", "teste2", "teste2", "teste2", 2,"teste2", 2);
+		products[2] = new Product("teste3", "teste3", "teste3", "teste3", 3,"teste3", 3);
 		return products; //Deve retornar JSON, ainda não sei como, mas é isso.
 	}
 	
@@ -94,7 +94,9 @@ public class AppController {
 			return statusCode;
 		}
 		
-		Product product = new Product(name, category, type, image, price, desc);
+		// Código para gerar ID
+		
+		Product product = new Product(name, category, type, image, price, desc, 1); // o 1 é um ID, que no momento é arbitrario mas dever ser gerado por uma função
 		
 		// Código para inserir no banco de dados, de preferência com try e catch
 		
@@ -114,7 +116,9 @@ public class AppController {
 			return statusCode;
 		}
 		
-		User user = new User(username, password, email, phoneNum);
+		//Código para gerar ID
+		
+		User user = new User(username, password, email, phoneNum, 1); // o 1 é um ID, que no momento é arbitrario mas dever ser gerado por uma função
 		
 		//Código para guardar usuário no BD
 		//Se deu bigode retorna código de erro, se deu bom retorna token de login
