@@ -1,4 +1,4 @@
-package com.grupoPZBM.backendtrabppi;
+package com.grupoPZBM.backendtrabppi.entity;
 
 import javax.persistence.*;
 import java.util.UUID;

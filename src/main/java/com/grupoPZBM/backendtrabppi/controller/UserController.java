@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.grupoPZBM.backendtrabppi.User;
-import com.grupoPZBM.backendtrabppi.UserRepository;
+import com.grupoPZBM.backendtrabppi.entity.User;
+import com.grupoPZBM.backendtrabppi.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +57,7 @@ class UserController {
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User item) {
         try {
+
             User savedItem = repository.save(item);
             return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
         } catch (Exception e) {
