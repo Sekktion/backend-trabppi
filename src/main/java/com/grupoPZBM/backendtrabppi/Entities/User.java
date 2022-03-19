@@ -11,8 +11,36 @@ public class User {
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "phoneNum", nullable = false)
+    private String phoneNum;
+
     public UUID getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
     public void setId(UUID id) {
