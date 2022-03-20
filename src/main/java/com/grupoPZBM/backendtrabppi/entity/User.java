@@ -11,16 +11,19 @@ public class User {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phoneNum", nullable = false)
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phoneNum")
     private String phoneNum;
 
     public UUID getId() {
