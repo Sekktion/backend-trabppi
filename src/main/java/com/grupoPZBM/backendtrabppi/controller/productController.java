@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.grupoPZBM.backendtrabppi.entity.Product;
-import com.grupoPZBM.backendtrabppi.repository.ProductRepository;
+import com.grupoPZBM.backendtrabppi.model.productModel;
+import com.grupoPZBM.backendtrabppi.repository.productRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("product")
-class ProductController {
+class productController {
 
     @Autowired
-    ProductRepository repository;
+    productRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll() {
+    public ResponseEntity<List<productModel>> getAll() {
         try {
-            List<Product> items = new ArrayList<Product>();
+            List<productModel> items = new ArrayList<productModel>();
 
             repository.findAll().forEach(items::add);
 
@@ -38,8 +38,8 @@ class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Product> getById(@PathVariable("id") UUID id) {
-        Optional<Product> existingItemOptional = repository.findById(id);
+    public ResponseEntity<productModel> getById(@PathVariable("id") UUID id) {
+        Optional<productModel> existingItemOptional = repository.findById(id);
 
         if (existingItemOptional.isPresent()) {
             return new ResponseEntity<>(existingItemOptional.get(), HttpStatus.OK);
@@ -49,10 +49,10 @@ class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product item) {
+    public ResponseEntity<productModel> create(@RequestBody productModel item) {
         try {
 
-            Product savedItem = repository.save(item);
+            productModel savedItem = repository.save(item);
             return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -60,10 +60,10 @@ class ProductController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Product> update(@PathVariable("id") UUID id, @RequestBody Product item) {
-        Optional<Product> existingItemOptional = repository.findById(id);
+    public ResponseEntity<productModel> update(@PathVariable("id") UUID id, @RequestBody productModel item) {
+        Optional<productModel> existingItemOptional = repository.findById(id);
         if (existingItemOptional.isPresent()) {
-            Product existingItem = existingItemOptional.get();
+            productModel existingItem = existingItemOptional.get();
             System.out.println("TODO for developer - update logic is unique to entity and must be implemented manually.");
             //existingItem.setSomeField(item.getSomeField());
             return new ResponseEntity<>(repository.save(existingItem), HttpStatus.OK);

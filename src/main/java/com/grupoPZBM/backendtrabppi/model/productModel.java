@@ -1,11 +1,11 @@
-package com.grupoPZBM.backendtrabppi.entity;
+package com.grupoPZBM.backendtrabppi.model;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class productModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -26,6 +26,8 @@ public class Product {
     @Column(name = "price", nullable = false)
     private long price;
 
+    @Column(name = "usuario", nullable = false)
+    private String username;
 
     public UUID getId() {
         return id;
@@ -74,4 +76,13 @@ public class Product {
     public void setPrice(long price) {
         this.price = price;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

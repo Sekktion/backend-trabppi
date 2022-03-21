@@ -1,11 +1,11 @@
-package com.grupoPZBM.backendtrabppi.entity;
+package com.grupoPZBM.backendtrabppi.model;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class userModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -17,13 +17,13 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phoneNum")
+    @Column(name = "phoneNum", nullable = true, unique = true)
     private String phoneNum;
 
     public UUID getId() {
@@ -40,6 +40,10 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getPhoneNum() {
@@ -60,10 +64,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public void setAddress(String address) {
