@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,11 +14,11 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Column(name = "category", nullable = false)
     private String category;
-
-    @Column(name = "type", nullable = false)
-    private String type;
 
     @Column(name = "image", nullable = false)
     private String image;
@@ -26,38 +26,52 @@ public class Product {
     @Column(name = "price", nullable = false)
     private long price;
 
-    @Column(name = "desc", nullable = false)
-    private String desc;
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getCategory() {
         return category;
     }
 
-    public String getType() {
-        return type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImage() {
         return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public long getPrice() {
         return price;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public void setPrice(long price) {
+        this.price = price;
     }
 }
