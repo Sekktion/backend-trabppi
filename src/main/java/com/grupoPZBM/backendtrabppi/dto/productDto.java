@@ -1,41 +1,30 @@
-package com.grupoPZBM.backendtrabppi.model;
+package com.grupoPZBM.backendtrabppi.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
-@Entity
-@Table(name = "products")
-public class productModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private UUID id;
+public class productDto {
 
-    @Column(name = "name", nullable = false)
+    @NotBlank
+    @Size (max = 50)
     private String name;
 
-    @Column(name = "description")
+    @NotBlank
+    @Size (max = 200)
     private String description;
 
-    @Column(name = "category", nullable = false)
+    @Size (max = 20)
     private String category;
 
-    @Column(name = "image")
     private String image;
 
-    @Column(name = "price", nullable = false)
+    @NotNull
     private long price;
 
-    @Column(name = "user", nullable = false)
+    @NotBlank
     private UUID userID;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -77,12 +66,11 @@ public class productModel {
         this.price = price;
     }
 
-    public UUID getUsername() {
+    public UUID getUserID() {
         return userID;
     }
 
-    public void setUsername(UUID userID) {
+    public void setUserID(UUID userID) {
         this.userID = userID;
     }
-
 }

@@ -22,5 +22,7 @@ public interface userRepository extends CrudRepository<userModel, UUID>{
 
     public List<userModel> findAll();
 
+    public Optional<userModel> findById(UUID id);
+
 }
 

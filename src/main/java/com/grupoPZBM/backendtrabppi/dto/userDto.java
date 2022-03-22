@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.UUID;
 
 public class userDto {
     @NotBlank
@@ -19,6 +21,8 @@ public class userDto {
     private String address;
     @NotBlank
     private String phoneNum;
+
+    private List<UUID> products;
 
     public String getUsername() {
         return username;
@@ -59,4 +63,10 @@ public class userDto {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+//    public List<UUID> getProducts() { return products; };
+
+//    public void setProducts(UUID productID) {
+//        this.products.add(productID);
+//    }
 }

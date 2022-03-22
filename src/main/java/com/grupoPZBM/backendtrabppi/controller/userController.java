@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.grupoPZBM.backendtrabppi.dto.userDto;
+import com.grupoPZBM.backendtrabppi.model.productModel;
 import com.grupoPZBM.backendtrabppi.model.userModel;
 import com.grupoPZBM.backendtrabppi.repository.userRepository;
 
+import com.grupoPZBM.backendtrabppi.service.productService;
 import com.grupoPZBM.backendtrabppi.service.userService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,11 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class userController {
 
-    final userService userService;
+    @Autowired
+    private userService userService;
 
-    public userController(userService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private productService productService;
 
     @PostMapping // Rota para criação de usuário
     public ResponseEntity<Object> createUser(@RequestBody @Valid userDto userDto) {
@@ -80,14 +82,21 @@ public class userController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(updatedUser));
     }
 
-    @DeleteMapping("/{id}") // Rota para apagar usuário do BD
+    @DeleteMapping("/{id}") // Rota para apagar usuário e todos os seus produtos do BD.
     public ResponseEntity<Object> deleteUser(@PathVariable (value = "id") UUID id){
 
         Optional<userModel> user = userService.findById(id);
         if(!user.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado.");
         }
+
+//        int counter = 0;
+//        while(counter < user.get().getProducts().size()){
+//            productService.delete(productService.findByID(user.get().getProducts().toArray()[counter]));
+//        }
+
+
         userService.delete(user.get());
-        return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso");
+        return ResponseEntity.status(HttpStatus.OK).body("Usuário removido com sucesso");
     }
 }

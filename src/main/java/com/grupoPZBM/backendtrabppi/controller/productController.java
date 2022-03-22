@@ -1,84 +1,87 @@
 package com.grupoPZBM.backendtrabppi.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+import com.grupoPZBM.backendtrabppi.dto.productDto;
 import com.grupoPZBM.backendtrabppi.model.productModel;
-import com.grupoPZBM.backendtrabppi.repository.productRepository;
-
+import com.grupoPZBM.backendtrabppi.model.userModel;
+import com.grupoPZBM.backendtrabppi.service.productService;
+import com.grupoPZBM.backendtrabppi.service.userService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("product")
-class productController {
+@RequestMapping("/product")
+public class productController {
 
     @Autowired
-    productRepository repository;
+    private productService productService;
 
-    @GetMapping
-    public ResponseEntity<List<productModel>> getAll() {
-        try {
-            List<productModel> items = new ArrayList<productModel>();
+    @Autowired
+    private userService userService;
 
-            repository.findAll().forEach(items::add);
+    @PostMapping // Rota para criar produto no BD.
+    public ResponseEntity<Object> createProduct(@RequestBody @Valid productDto productDto){
 
-            if (items.isEmpty())
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Optional<userModel> user = userService.findById(productDto.getUserID());
 
-            return new ResponseEntity<>(items, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        if(!user.isPresent()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tentando postar um produto sem um usuário válido.");
         }
+
+        productModel product = new productModel();
+
+        BeanUtils.copyProperties(productDto, product);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<productModel> getById(@PathVariable("id") UUID id) {
-        Optional<productModel> existingItemOptional = repository.findById(id);
-
-        if (existingItemOptional.isPresent()) {
-            return new ResponseEntity<>(existingItemOptional.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping // Rota para listar todos os produtos do BD.
+    public ResponseEntity<List<productModel>> listAllProducts(){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findALl());
     }
 
-    @PostMapping
-    public ResponseEntity<productModel> create(@RequestBody productModel item) {
-        try {
-
-            productModel savedItem = repository.save(item);
-            return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+    @GetMapping ("/{id}")// Rota para listar um produto por ID do BD.
+    public ResponseEntity<Object> listOneProduct(@PathVariable (value = "id") UUID id){
+        Optional<productModel> product = productService.findByID(id);
+        if(!product.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body(product.get());
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<productModel> update(@PathVariable("id") UUID id, @RequestBody productModel item) {
-        Optional<productModel> existingItemOptional = repository.findById(id);
-        if (existingItemOptional.isPresent()) {
-            productModel existingItem = existingItemOptional.get();
-            System.out.println("TODO for developer - update logic is unique to entity and must be implemented manually.");
-            //existingItem.setSomeField(item.getSomeField());
-            return new ResponseEntity<>(repository.save(existingItem), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PutMapping ("/{id}") // Rota para alterar informações de um produto do BD.
+    public ResponseEntity<Object> updateProduct(@PathVariable (value = "id") UUID id,
+                                                @RequestBody @Valid productDto productDto){
+        Optional<productModel> product = productService.findByID(id);
+        if(!product.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
+
+        productModel updatedProduct = new productModel();
+
+        BeanUtils.copyProperties(productDto, updatedProduct);
+        updatedProduct.setId(product.get().getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(productService.save(updatedProduct));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") UUID id) {
-        try {
-            repository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    @DeleteMapping ("/{id}") // Rota para deletar um produto do BD.
+    public ResponseEntity<Object> deleteProduct(@PathVariable (value = "id") UUID id){
+        Optional<productModel> product = productService.findByID(id);
+        if(!product.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
+
+        productService.delete(product.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Listagem de produto removida.");
     }
 }

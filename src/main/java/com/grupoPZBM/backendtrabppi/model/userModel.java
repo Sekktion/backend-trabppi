@@ -1,6 +1,8 @@
 package com.grupoPZBM.backendtrabppi.model;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +28,9 @@ public class userModel {
     @Column(name = "phoneNum", nullable = true, unique = true)
     private String phoneNum;
 
+//    @Column(name = "product_list", unique = true)
+//    private UUID[] products;
+
     public UUID getId() {
         return id;
     }
@@ -50,6 +55,8 @@ public class userModel {
         return phoneNum;
     }
 
+//    public List<UUID> getProducts() { return products; };
+
     public void setId(UUID id) {
         this.id = id;
     }
@@ -73,4 +80,8 @@ public class userModel {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+//    public void setProducts(UUID productID) {
+//        this.products.to;
+//    }
 }
