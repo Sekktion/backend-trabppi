@@ -8,81 +8,81 @@ import java.util.UUID;
 public class productModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    @Column(name = "productId")
+    private UUID productId;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "productName")
+    private String productName;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "productDescription")
+    private String productDescription;
 
-    @Column(name = "category", nullable = false)
-    private String category;
+    @Column(name = "productType")
+    private String productType;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "productImage")
+    private String productImage;
 
-    @Column(name = "price", nullable = false)
-    private long price;
+    @Column(name = "productPrice")
+    private long productPrice;
 
-    @Column(name = "user", nullable = false)
-    private UUID userID;
+    @Column(name = "productOwner")
+    private UUID productOwnerId;
 
     public UUID getId() {
-        return id;
+        return productId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setId(UUID productId) {
+        this.productId = productId;
     }
 
     public String getName() {
-        return name;
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
-        return description;
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public String getCategory() {
-        return category;
+        return productType;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(String productType) {
+        this.productType = productType;
     }
 
     public String getImage() {
-        return image;
+        return productImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public long getPrice() {
-        return price;
+        return productPrice;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setPrice(long productPrice) {
+        this.productPrice = productPrice;
     }
 
     public UUID getUsername() {
-        return userID;
+        return productOwnerId;
     }
 
-    public void setUsername(UUID userID) {
-        this.userID = userID;
+    public void setUsername(UUID productOwnerId) {
+        this.productOwnerId = productOwnerId;
     }
 
 }

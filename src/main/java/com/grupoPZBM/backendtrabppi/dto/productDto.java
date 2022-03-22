@@ -1,5 +1,7 @@
 package com.grupoPZBM.backendtrabppi.dto;
 
+import com.grupoPZBM.backendtrabppi.configs.UUIDConfig;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -7,70 +9,62 @@ import java.util.UUID;
 
 public class productDto {
 
-    @NotBlank
     @Size (max = 50)
-    private String name;
-
-    @NotBlank
+    private String productName;
     @Size (max = 200)
-    private String description;
-
-    @Size (max = 20)
-    private String category;
-
-    private String image;
-
-    @NotNull
-    private long price;
-
-    @NotBlank
-    private UUID userID;
+    private String productDescription;
+    @Size (max = 50)
+    private String productType;
+    private String productImage;
+    private long productPrice;
+//    @UUIDConfig.UUID
+//    private UUID productOwnerId;
 
     public String getName() {
-        return name;
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
-        return description;
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public String getCategory() {
-        return category;
+        return productType;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.productType = productType;
     }
 
     public String getImage() {
-        return image;
+        return productImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String productImage) {
+        this.productImage = productImage;
     }
 
     public long getPrice() {
-        return price;
+        return productPrice;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setPrice(long productPrice) {
+        this.productPrice = productPrice;
     }
 
-    public UUID getUserID() {
-        return userID;
-    }
-
-    public void setUserID(UUID userID) {
-        this.userID = userID;
-    }
+//    public UUID getUserID() {
+//        return productOwnerId;
+//    }
+//
+//    public void setUserID(UUID productOwnerId) {
+//        this.productOwnerId = productOwnerId;
+//    }
 }

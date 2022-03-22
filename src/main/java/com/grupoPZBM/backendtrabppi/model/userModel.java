@@ -25,7 +25,7 @@ public class userModel {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phoneNum", nullable = true, unique = true)
+    @Column(name = "phoneNum", nullable = false, unique = true)
     private String phoneNum;
 
 //    @Column(name = "product_list", unique = true)

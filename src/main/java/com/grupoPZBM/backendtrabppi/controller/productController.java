@@ -30,11 +30,11 @@ public class productController {
     @PostMapping // Rota para criar produto no BD.
     public ResponseEntity<Object> createProduct(@RequestBody @Valid productDto productDto){
 
-        Optional<userModel> user = userService.findById(productDto.getUserID());
-
-        if(!user.isPresent()){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tentando postar um produto sem um usuário válido.");
-        }
+//        Optional<userModel> user = userService.findById(productDto.getUserID());
+//
+//        if(!user.isPresent()){
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tentando postar um produto sem um usuário válido.");
+//        }
 
         productModel product = new productModel();
 
