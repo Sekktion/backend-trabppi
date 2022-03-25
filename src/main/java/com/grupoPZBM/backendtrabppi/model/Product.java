@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-public class productModel {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "productId")
@@ -28,6 +28,11 @@ public class productModel {
 
     @Column(name = "productOwner")
     private UUID productOwnerId;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "users.id")
+    private User user;
+
 
     public UUID getId() {
         return productId;

@@ -1,8 +1,8 @@
 package com.grupoPZBM.backendtrabppi.service;
 
-import com.grupoPZBM.backendtrabppi.model.userModel;
-import com.grupoPZBM.backendtrabppi.repository.productRepository;
-import com.grupoPZBM.backendtrabppi.repository.userRepository;
+import com.grupoPZBM.backendtrabppi.exception.UserException;
+import com.grupoPZBM.backendtrabppi.model.User;
+import com.grupoPZBM.backendtrabppi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -14,14 +14,19 @@ import java.util.UUID;
 public class userService {
 
     @Autowired
-    private userRepository userRepository;
+    private UserRepository userRepository;
 
     @Transactional
-    public userModel save(userModel userModel){
-        return userRepository.save(userModel);
+    public User save(User user){
+        boolean foundEmail = userRepository.existsByEmail(user.getEmail());
+        boolean foundUsername = userRepository.existsByUsername((user.getUsername()));
+        if(foundEmail || foundUsername ) {
+            throw new UserException("Já existe um usuário com este nome");
+        }
+        return userRepository.save(user);
     }
 
-    public List<userModel> findAll(){
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 
@@ -37,12 +42,12 @@ public class userService {
         return userRepository.existsByPhoneNum(phoneNum);
     }
 
-    public Optional<userModel> findById(UUID id){
+    public Optional<User> findById(UUID id){
         return userRepository.findById(id);
     }
 
     @Transactional
-    public void delete(userModel user){
+    public void delete(User user){
         userRepository.delete(user);
     }
 }

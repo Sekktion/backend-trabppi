@@ -1,13 +1,11 @@
 package com.grupoPZBM.backendtrabppi.model;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class userModel {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -22,10 +20,10 @@ public class userModel {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "phoneNum", nullable = false, unique = true)
+    @Column(name = "phoneNum", unique = true)
     private String phoneNum;
 
 //    @Column(name = "product_list", unique = true)

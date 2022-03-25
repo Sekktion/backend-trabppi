@@ -1,13 +1,11 @@
 package com.grupoPZBM.backendtrabppi.service;
 
-import com.grupoPZBM.backendtrabppi.model.productModel;
-import com.grupoPZBM.backendtrabppi.model.userModel;
-import com.grupoPZBM.backendtrabppi.repository.productRepository;
+import com.grupoPZBM.backendtrabppi.model.Product;
+import com.grupoPZBM.backendtrabppi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,23 +14,23 @@ import java.util.UUID;
 public class productService {
 
     @Autowired
-    private productRepository productRepository;
+    private ProductRepository productRepository;
 
     @Transactional
-    public productModel save(productModel productModel){
+    public Product save(Product productModel){
         return productRepository.save(productModel);
     }
 
-    public List<productModel> findALl(){
+    public List<Product> findALl(){
         return productRepository.findAll();
     }
 
-    public Optional<productModel> findByID(UUID id){
+    public Optional<Product> findByID(UUID id){
         return productRepository.findById(id);
     }
 
     @Transactional
-    public void delete(productModel product){
+    public void delete(Product product){
         productRepository.delete(product);
     }
 

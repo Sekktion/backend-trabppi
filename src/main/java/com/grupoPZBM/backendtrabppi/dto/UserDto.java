@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
-public class userDto {
+public class UserDto {
     @NotBlank
     @Size(max = 30)
     private String username;
@@ -17,9 +17,7 @@ public class userDto {
     @NotBlank
     @Email
     private String email;
-    @NotBlank
     private String address;
-    @NotBlank
     private String phoneNum;
 
     private List<UUID> products;

@@ -1,8 +1,7 @@
 package com.grupoPZBM.backendtrabppi.controller;
 
 import com.grupoPZBM.backendtrabppi.dto.productDto;
-import com.grupoPZBM.backendtrabppi.model.productModel;
-import com.grupoPZBM.backendtrabppi.model.userModel;
+import com.grupoPZBM.backendtrabppi.model.Product;
 import com.grupoPZBM.backendtrabppi.service.productService;
 import com.grupoPZBM.backendtrabppi.service.userService;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +35,7 @@ public class productController {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Tentando postar um produto sem um usuário válido.");
 //        }
 
-        productModel product = new productModel();
+        Product product = new Product();
 
         BeanUtils.copyProperties(productDto, product);
 
@@ -44,13 +43,13 @@ public class productController {
     }
 
     @GetMapping // Rota para listar todos os produtos do BD.
-    public ResponseEntity<List<productModel>> listAllProducts(){
+    public ResponseEntity<List<Product>> listAllProducts(){
         return ResponseEntity.status(HttpStatus.OK).body(productService.findALl());
     }
 
     @GetMapping ("/{id}")// Rota para listar um produto por ID do BD.
     public ResponseEntity<Object> listOneProduct(@PathVariable (value = "id") UUID id){
-        Optional<productModel> product = productService.findByID(id);
+        Optional<Product> product = productService.findByID(id);
         if(!product.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
@@ -61,12 +60,12 @@ public class productController {
     @PutMapping ("/{id}") // Rota para alterar informações de um produto do BD.
     public ResponseEntity<Object> updateProduct(@PathVariable (value = "id") UUID id,
                                                 @RequestBody @Valid productDto productDto){
-        Optional<productModel> product = productService.findByID(id);
+        Optional<Product> product = productService.findByID(id);
         if(!product.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
 
-        productModel updatedProduct = new productModel();
+        Product updatedProduct = new Product();
 
         BeanUtils.copyProperties(productDto, updatedProduct);
         updatedProduct.setId(product.get().getId());
@@ -76,7 +75,7 @@ public class productController {
 
     @DeleteMapping ("/{id}") // Rota para deletar um produto do BD.
     public ResponseEntity<Object> deleteProduct(@PathVariable (value = "id") UUID id){
-        Optional<productModel> product = productService.findByID(id);
+        Optional<Product> product = productService.findByID(id);
         if(!product.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
